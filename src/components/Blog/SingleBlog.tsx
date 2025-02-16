@@ -1,3 +1,4 @@
+"use client"
 import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,7 +38,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               </div>
               <div className="w-full">
                 <h4 className="mb-1 text-sm font-medium text-dark dark:text-white">
-                  By {author.name}
+                  Par {author.name}
                 </h4>
                 <p className="text-xs text-body-color">{author.designation}</p>
               </div>

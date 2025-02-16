@@ -13,3 +13,7 @@ export type Blog = {
   tags: string[];
   publishDate: string;
 };
+
+export interface PageProps {
+  params: Promise<{ id: string }>;
+}

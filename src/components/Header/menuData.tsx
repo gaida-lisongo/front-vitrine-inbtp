@@ -9,48 +9,36 @@ const menuData: Menu[] = [
   },
   {
     id: 2,
-    title: "Apropos",
-    path: "/about",
+    title: "Programmes",
+    path: "/programmes",
     newTab: false,
   },
   {
     id: 33,
-    title: "Promotions",
+    title: "Recherche",
     path: "/blog",
     newTab: false,
   },
   {
-    id: 3,
-    title: "Contact",
-    path: "/contact",
-    newTab: false,
-  },
-  {
     id: 4,
-    title: "Pages",
+    title: "Bibliothèque",
     newTab: false,
     submenu: [
       {
-        id: 41,
-        title: "About Page",
-        path: "/about",
-        newTab: false,
-      },
-      {
         id: 42,
-        title: "Contact Page",
+        title: "Ouvrages",
         path: "/contact",
         newTab: false,
       },
       {
         id: 43,
-        title: "Blog Grid Page",
+        title: "Publications",
         path: "/blog",
         newTab: false,
       },
       {
         id: 44,
-        title: "Blog Sidebar Page",
+        title: "Mémoires",
         path: "/blog-sidebar",
         newTab: false,
       },
@@ -79,6 +67,18 @@ const menuData: Menu[] = [
         newTab: false,
       },
     ],
+  },
+  {
+    id: 41,
+    title: "Apropos de nous",
+    path: "/about",
+    newTab: false,
+  },
+  {
+    id: 3,
+    title: "Contact",
+    path: "/contact",
+    newTab: false,
   },
 ];
 export default menuData;

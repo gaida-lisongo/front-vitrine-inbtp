@@ -3,6 +3,15 @@ import getEnvs from './config';
 const url = getEnvs.dev.url;
 
 export const homeService = {
+  articles: async function(){
+    try {
+      const response = await fetch(`${url}/home/`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  },
   section: async function(){
     try {
       const response = await fetch(`${url}/home/sections`);
