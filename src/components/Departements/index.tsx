@@ -63,7 +63,7 @@ const Departements: React.FC = () => {
     );
 
   return (
-    <section className="relative h-[60vh] w-full overflow-hidden">
+    <section className="relative h-[70vh] w-full overflow-hidden">
       {sections.map((section, index) => (
         <div key={section.id} className="absolute top-0 left-0 w-full h-full">
           <img
@@ -77,7 +77,7 @@ const Departements: React.FC = () => {
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           {index === current && (
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="bg-white bg-opacity-80 p-8 rounded text-center space-y-4 max-w-[600px]">
+              <div className="bg-white bg-opacity-80 p-8 mt-20 rounded text-center space-y-4 max-w-[600px]">
                 <h2 className="text-4xl font-bold text-gray-900">
                   {section.title}
                 </h2>

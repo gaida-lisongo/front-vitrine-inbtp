@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, use } from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import AdminSteps from "@/components/Process";
+import { programmeService } from "api/service";
+import { homeService } from "api/home";
 
 // Update the type definition
 type Programme = {
@@ -10,7 +12,7 @@ type Programme = {
   title: string;
   description: string;
   facultyCode: string; // e.g. "FST", "FSEG", etc.
-  cycle: "Licence" | "Master" | "Doctorat" | "Préparatoire";
+  cycle: "LICENCE" | "MASTER" | "DOCTORAT" | "PREPARATOIRE" | "PRE-MASTER";
   level: number; // 1,2,3 for Licence, 1,2 for Master etc
   orientation: string;
   subjectCount: number;
@@ -243,7 +245,7 @@ const allProgrammes: Programme[] = [
 
 // Categories and corresponding filter options
 const categories = ["Facultés", "Cycles", "Niveaux", "Matières"];
-const filterOptions: Record<string, string[]> = {
+let filterOptions: Record<string, string[]> = {
   Facultés: ["FST", "FSEG"],
   Cycles: ["Licence", "Master", "Doctorat", "Préparatoire"],
   Niveaux: ["Niveau 1", "Niveau 2", "Niveau 3"],
@@ -257,6 +259,79 @@ const ProgrammesPage: React.FC = () => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [programmes, setProgrammes] = useState<Programme[]>([]);
+  const [cycles, setCycles] = useState<string[]>([]);
+  const [niveaux, setNiveaux] = useState<string[]>([]);
+  const [facultes, setFacultes] = useState<string[]>([]);
+
+  useEffect(() => {
+    programmeService.promotions()
+      .then((api) => {
+        let data = [];
+        let cours = 0;
+
+        api.data.map((promotion: any) => {
+          let currPromotion = {
+            id: promotion.id,
+            title: promotion.section,
+            description: promotion.description,
+            facultyCode: promotion.sigle,
+            cycle: promotion.cycle,
+            level: promotion.niveau,
+            orientation: promotion.orientation,
+            subjectCount: cours,
+            image: "/images/about/baptiment.png",
+          }
+
+          programmeService.matieres({ id: promotion.id })
+            .then((matieres) => {
+              cours = matieres.data.length;
+              currPromotion.subjectCount = cours;
+              data.push(currPromotion);
+            })
+            .catch((error) => console.error(error));
+
+        });
+
+        setProgrammes(data);
+      })
+      .catch((error) => console.error(error));
+
+    programmeService.cycles()
+      .then((api) => {
+        const a = api.data.map((item: any) => item.designation);
+       setCycles(a);
+      })
+      .catch((error) => console.error(error));
+
+    programmeService.niveaux() 
+      .then((api) => {
+        const a = api.data.map((item: any) => item.intitule);
+        setNiveaux(a)
+      })
+      .catch((error) => console.error(error));
+
+    homeService.section()
+      .then((api) => {
+        const a = api.data.map((item: any) => item.sigle);
+        setFacultes(a)
+      })
+      .catch((error) => console.error(error));
+
+  }, []);
+
+  useEffect(() => {
+    filterOptions = {
+      Facultés: facultes,
+      Cycles: cycles,
+      Niveaux: niveaux,
+      Matières: ["Matières ≥ 8", "Matières ≥ 12", "Matières ≥ 20"],
+    };
+  }, [cycles, niveaux, facultes]);
+
+  useEffect(() => {
+    console.log("Programmes chargés : ", programmes);
+  }, [programmes]);
 
   const handleCheckboxChange = (option: string, checked: boolean) => {
     if (checked) {
@@ -269,7 +344,7 @@ const ProgrammesPage: React.FC = () => {
 
   // Update the filtering logic in the useMemo hook
   const filteredProgrammes = useMemo(() => {
-    let filtered = allProgrammes;
+    let filtered = programmes;
 
     // Apply search filter
     if (searchTerm.trim()) {
@@ -288,7 +363,7 @@ const ProgrammesPage: React.FC = () => {
             return selectedFilters.includes(programme.cycle);
           case "Niveaux":
             return selectedFilters.some(filter => 
-              filter === `Niveau ${programme.level}`
+              filter === `${programme.level}`
             );
           case "Matières":
             const thresholds = selectedFilters.map(filter =>
@@ -302,7 +377,7 @@ const ProgrammesPage: React.FC = () => {
     }
 
     return filtered;
-  }, [selectedCategory, selectedFilters, searchTerm]);
+  }, [selectedCategory, selectedFilters, searchTerm, programmes]);
 
   const totalPages = Math.ceil(filteredProgrammes.length / itemsPerPage);
   const displayedProgrammes = useMemo(() => {
@@ -434,7 +509,7 @@ const ProgrammesPage: React.FC = () => {
                     <div className="mt-4">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-xl font-bold">{programme.title}</h3>
-                        <span className="text-sm text-gray-500">Niveau {programme.level}</span>
+                        <span className="text-sm text-gray-500">{programme.level}</span>
                       </div>
                       <div className="flex gap-2 mb-2">
                         <span className="text-sm bg-gray-100 px-2 py-1 rounded">

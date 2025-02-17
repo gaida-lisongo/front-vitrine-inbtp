@@ -1,7 +1,8 @@
 "use client";
 import { PageProps } from "@/types/blog";
+import { programmeService } from "api/service";
 import Image from "next/image";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 
 
 type Course = {
@@ -52,13 +53,38 @@ const mockCourses: Course[] = [
   ];
 
 const BlogContent = ({ params} : PageProps) => {
-    // Récupération de l'ID depuis l'URL
-    const { id } = use(params);
+  const [courses, setCourses] = useState<Course[]>([]);
+  // Récupération de l'ID depuis l'URL
+  const { id } = use(params);
+  useEffect(() => {
+    // Requête API pour récupérer les détails du cours
+    programmeService.matieres({ id })
+      .then((api) => {
+        const data: Course[] = api.data.map((course: any) => ({
+          id: course.id,
+          title: course.designation,
+          teacherName: course.titulaire,
+          teacherImage: "/images/blog/author-02.png",
+          teachingUnit: course.codeUnite,
+          semester: course.semester,
+          credits: course.credits,
+          description: course.description,
+          objectives: 77
+        }));
+
+        setCourses(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    console.log("Cours ", courses);
+  }, [courses]);
   return (
     <div className="w-full px-4 lg:w-8/12">
       <div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {mockCourses.map((course) => (
+          {courses && courses.map((course) => (
             <div key={course.id} className="bg-white dark:bg-gray-dark rounded-xl shadow-md overflow-hidden">
               {/* Header with teacher info */}
               <div className="p-6">
