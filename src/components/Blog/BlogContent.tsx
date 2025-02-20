@@ -1,6 +1,6 @@
 "use client";
 import { PageProps } from "@/types/blog";
-import { programmeService } from "api/service";
+import { programmeService } from "@/api/service";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 

@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
-import { homeService } from "api/home";
+import { homeService } from "@/api/home";
 
 const Stats = () => {
   const [animatedStats, setAnimatedStats] = useState({

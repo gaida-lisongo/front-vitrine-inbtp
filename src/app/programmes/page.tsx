@@ -3,8 +3,8 @@ import React, { useState, useMemo, useEffect, use } from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import AdminSteps from "@/components/Process";
-import { programmeService } from "../../../api/service";
-import { homeService } from "../../../api/home";
+import { programmeService } from "@/api/service";
+import { homeService } from "@/api/home";
 import Image from "next/image";
 
 // Update the type definition

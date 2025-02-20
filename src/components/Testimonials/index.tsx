@@ -4,7 +4,7 @@ import { Testimonial } from "@/types/testimonial";
 import SectionTitle from "../Common/SectionTitle";
 import SingleTestimonial from "./SingleTestimonial";
 import { useEffect, useState } from "react";
-import aboutService from "api/about";
+import aboutService from "@/api/about";
 
 const testimonialData: Testimonial[] = [
   {

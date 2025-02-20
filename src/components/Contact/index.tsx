@@ -1,6 +1,6 @@
 "use client";
 import { useState, FormEvent } from "react";
-import contactService from "api/contact";
+import contactService from "@/api/contact";
 
 interface ContactData {
   email: string;

@@ -3,9 +3,9 @@
 import { PageProps } from "@/types/blog";
 import FileUpload from "../FileUplaod";
 import { useRef, useState, use, useEffect } from "react";
-import { programmeService } from "api/service";
+import { programmeService } from "@/api/service";
 import { upload } from "./uplaod.action";
-import getsEnv from "../../../api/config";
+import getsEnv from "../../api/config";
 
 const flexApi = getsEnv.flexData;
 

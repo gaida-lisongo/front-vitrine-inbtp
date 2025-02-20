@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SingleBlog from "./SingleBlog";
 import blogData from "./blogData";
 import Link from "next/link";
-import { homeService } from "api/home";
+import { homeService } from "@/api/home";
 
 const Blog = () => {
   const [articles, setArticles] = useState([]);

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
-import { homeService } from "api/home";
+import { homeService } from "@/api/home";
 
 const Features = () => {
   const [orientations, setOrientations] = useState([]);

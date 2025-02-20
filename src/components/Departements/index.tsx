@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { homeService } from "api/home";
+import { homeService } from "@/api/home";
 import Image from 'next/image';
 
 type Section = {

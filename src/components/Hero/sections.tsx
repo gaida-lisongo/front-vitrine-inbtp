@@ -1,6 +1,6 @@
 "use client";
 
-import { homeService } from "api/home";
+import { homeService } from "@/api/home";
 import { useState, useEffect } from "react";
 import Link from 'next/link';
 
