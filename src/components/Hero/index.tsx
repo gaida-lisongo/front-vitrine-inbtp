@@ -18,6 +18,18 @@ const Hero = () => {
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
                   Bienvenue à l'Institut National du Bâtiment et des Travaux Publics, un établissement de référence dédié à la formation, la recherche et l'innovation dans les domaines du bâtiment et des travaux publics. Nous nous engageons à fournir une éducation de qualité supérieure et à promouvoir l'excellence professionnelle pour répondre aux besoins croissants de l'industrie.
                 </p>
+                <p>
+                  L&apos;Institut National du Bâtiment et des Travaux Publics s&apos;engage à former
+                  les futurs leaders de l&apos;industrie de la construction. Notre mission est d&apos;offrir
+                  une formation d&apos;excellence.
+                </p>
+                <div>
+                  <p>
+                    L&apos;Institut National du Bâtiment et des Travaux Publics s&apos;engage 
+                    à former les meilleurs ingénieurs. Notre mission est d&apos;offrir une 
+                    formation d&apos;excellence pour l&apos;avenir de la construction.
+                  </p>
+                </div>
                 <Sections />
               </div>
             </div>

@@ -1,27 +1,28 @@
 import getEnvs from './config';
 
+interface ContactData {
+  email: string;
+  objet: string;
+  content: string;
+}
+
 const url = getEnvs.dev.url;
 
 const contactService = {
-  contact: async function({ email, objet, message }){
+  contact: async (data: ContactData) => {
     try {
       const response = await fetch(`${url}/contact`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          objet: objet,
-          email: email,
-          content: message
-        })
+        body: JSON.stringify(data),
       });
-      const data = await response.json();
-      return data;
+      return await response.json();
     } catch (error) {
-      console.error('Error:', error);
+      throw error;
     }
-  }
-}
+  },
+};
 
 export default contactService;

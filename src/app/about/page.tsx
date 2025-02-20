@@ -1,26 +1,39 @@
-import AboutSectionOne from "@/components/About/AboutSectionOne";
-import AboutSectionTwo from "@/components/About/AboutSectionTwo";
+import Campus from "@/components/Campus";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import MissionCarousel from "@/components/Mission";
 import Testimonials from "@/components/Testimonials";
-
+import Timeline from "@/components/Timeline";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Page | Free Next.js Template for Startup and SaaS",
-  description: "This is About Page for Startup Nextjs Template",
-  // other metadata
+  title: "À Propos | INBTP",
+  description: "Découvrez l'Institut National du Bâtiment et des Travaux Publics, une institution d'excellence en RDC",
+  openGraph: {
+    title: "À Propos | INBTP",
+    description: "Centre d'excellence pour la formation en bâtiment et travaux publics",
+    images: [
+      {
+        url: "/images/logo/logo-inbtp.svg",
+        width: 1200,
+        height: 630,
+        alt: "INBTP Campus",
+      },
+    ],
+  },
 };
 
 const AboutPage = () => {
   return (
     <>
       <Breadcrumb
-        pageName="About Page"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        pageName="À Propos"
+        description="Découvrez l'INBTP, votre partenaire de confiance dans le domaine du bâtiment et des travaux publics. Notre engagement envers l'excellence et l'innovation façonne l'avenir de la construction au Congo."
+    
       />
-      <AboutSectionOne />
+      <MissionCarousel />
+      <Timeline />
+      <Campus />
       <Testimonials />
-      {/* <AboutSectionTwo /> */}
     </>
   );
 };

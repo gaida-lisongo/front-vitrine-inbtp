@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { homeService } from "api/home";
+import Image from 'next/image';
 
 type Section = {
   id: string | number;
@@ -66,12 +67,12 @@ const Departements: React.FC = () => {
     <section className="relative h-[70vh] w-full overflow-hidden">
       {sections.map((section, index) => (
         <div key={section.id} className="absolute top-0 left-0 w-full h-full">
-          <img
+          <Image
             src={`/images/sections/${index + 1}.jpg`}
             alt={section.title}
-            className={`w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-              index === current ? "opacity-100" : "opacity-0"
-            }`}
+            width={300}
+            height={200}
+            className="w-full h-auto"
           />
           {/* Film overlay to dim the background image */}
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>

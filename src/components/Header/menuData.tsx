@@ -16,7 +16,7 @@ const menuData: Menu[] = [
   {
     id: 33,
     title: "Recherche",
-    path: "/blog",
+    path: "/recherche",
     newTab: false,
   },
   {
@@ -27,7 +27,7 @@ const menuData: Menu[] = [
       {
         id: 42,
         title: "Ouvrages",
-        path: "/contact",
+        path: "/blog",
         newTab: false,
       },
       {
@@ -39,38 +39,38 @@ const menuData: Menu[] = [
       {
         id: 44,
         title: "Mémoires",
-        path: "/blog-sidebar",
+        path: "/blog",
         newTab: false,
       },
-      {
-        id: 45,
-        title: "Blog Details Page",
-        path: "/blog-details",
-        newTab: false,
-      },
-      {
-        id: 46,
-        title: "Sign In Page",
-        path: "/signin",
-        newTab: false,
-      },
-      {
-        id: 47,
-        title: "Sign Up Page",
-        path: "/signup",
-        newTab: false,
-      },
-      {
-        id: 48,
-        title: "Error Page",
-        path: "/error",
-        newTab: false,
-      },
+      // {
+      //   id: 45,
+      //   title: "Blog Details Page",
+      //   path: "/blog-details",
+      //   newTab: false,
+      // },
+      // {
+      //   id: 46,
+      //   title: "Sign In Page",
+      //   path: "/signin",
+      //   newTab: false,
+      // },
+      // {
+      //   id: 47,
+      //   title: "Sign Up Page",
+      //   path: "/signup",
+      //   newTab: false,
+      // },
+      // {
+      //   id: 48,
+      //   title: "Error Page",
+      //   path: "/error",
+      //   newTab: false,
+      // },
     ],
   },
   {
     id: 41,
-    title: "Apropos de nous",
+    title: "Notre Institut",
     path: "/about",
     newTab: false,
   },

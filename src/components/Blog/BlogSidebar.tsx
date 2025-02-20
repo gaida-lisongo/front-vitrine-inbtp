@@ -4,6 +4,10 @@ import { PageProps } from "@/types/blog";
 import FileUpload from "../FileUplaod";
 import { useRef, useState, use, useEffect } from "react";
 import { programmeService } from "api/service";
+import { upload } from "./uplaod.action";
+import getsEnv from "../../../api/config";
+
+const flexApi = getsEnv.flexData;
 
 const BlogSidebar = ({ params } : PageProps) => {
     // Récupération de l'ID depuis l'URL
@@ -35,32 +39,82 @@ const BlogSidebar = ({ params } : PageProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       
-      const formData = new FormData();
-      formData.append("nom", nom);
-      formData.append("postnom", postnom);
-      formData.append("prenom", prenom);
-      formData.append("sexe", sexe);
-      formData.append("dateNaissance", dateNaissance);
-      formData.append("lieuNaissance", lieuNaissance);
-      formData.append("email", email);
-      formData.append("telephone", telephone);
-      formData.append("adresse", adresse);
-      formData.append("file", selectedFile as File);
-      formData.append("formulaireId", formulaire.id.toString());
-      formData.append("anneeId", formulaire.anneeId.toString());
-      formData.append("promotionId", formulaire.promotionId.toString());
-      formData.append("folder", formulaire.folder);
+      const url = await upload(formulaire.folder, selectedFile);
+      
+      let payload = {
+        nom, 
+        postnom, 
+        prenom, 
+        sexe, 
+        dateNaissance, 
+        lieuNaissance, 
+        email, 
+        telephone, 
+        adresse, 
+        url,
+        orderNumber: null,
+        frais: frais
+      }
 
-      console.log("Form Data:", formData);
+
       switch (formulaire.folder) {
         case '/inscription':
-          programmeService.inscription(formData)
+          const refTransaction = `${formulaire.promotionId}.${formulaire.anneeId}.${nom}.${prenom}.${new Date().getTime()}`;
+
+          console.log("Ref: ", refTransaction);
+          fetch(flexApi.url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": flexApi.token
+            },
+            body: JSON.stringify({
+              merchant: flexApi.merchant,
+              type: flexApi.type,
+              currency: flexApi.currency,
+              amount: frais.reduce((acc, curr) => acc + curr.montant, 0),
+              callbackUrl: flexApi.callbackUrl,
+              description: "Paiement des frais d'inscription",
+              reference: refTransaction,
+              phone: telephone,
+            })
+          })
+
+          .then((response) => response.json())
           .then((api) => {
-            console.log("Inscription: ", api);
+            console.log(api);
+            if (api.code == 0) {
+              const { orderNumber } = api
+              payload.orderNumber = orderNumber;
+              console.log("request: ", payload);   
+
+              programmeService.inscription(payload)
+              .then((api) => {
+                let tours : number = 20;
+                
+                const intervalId = setInterval(() => {
+                  tours--;
+                  console.log("Inscription: ", api);
+                  console.log("Tours: ", tours);
+                  if(tours == 0) {
+                    console.log("stop checking");
+                    clearInterval(intervalId);
+
+                    return;
+                  }
+
+                }, 1000);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            } else {       
+            }
           })
           .catch((error) => {
-            console.error(error);
+            console.error(error)
           });
+        
           break;
       
         default:
@@ -109,7 +163,7 @@ const BlogSidebar = ({ params } : PageProps) => {
         .catch((error) => {
             console.error(error);
         });
-    }, []);
+    }, [id]);
 
     useEffect(() => {
       console.log("Formulaire ", formulaire);
@@ -122,6 +176,10 @@ const BlogSidebar = ({ params } : PageProps) => {
     useEffect(() => {
       console.log("Frais ", frais);
     }, [frais]);
+
+    useEffect(() => {
+      console.log("File ", selectedFile);
+    }, [selectedFile]);
     return (
       <div className="w-full px-4 lg:w-4/12">
         {/* Search Section */}

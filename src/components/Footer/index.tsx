@@ -12,23 +12,22 @@ const Footer = () => {
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block">
                   <Image
-                    src="/images/logo/logo-2.svg"
+                    src="/images/logo/logo-inbtp.svg"
                     alt="logo"
-                    className="w-full dark:hidden"
-                    width={140}
-                    height={30}
+                    width={100}
+                    height={80}
+                    className="h-30 w-30 dark:hidden"
                   />
                   <Image
-                    src="/images/logo/logo.svg"
+                    src="/images/logo/logo-inbtp.svg"
                     alt="logo"
-                    className="hidden w-full dark:block"
-                    width={140}
-                    height={30}
+                    width={100}
+                    height={80}
+                    className="hidden h-30 w-30 dark:block"
                   />
                 </Link>
                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer lobortis.
+                  L'Institut National du Bâtiment et des Travaux Publics (INBTP) est un établissement public dédié à la formation et au perfectionnement des professionnels du secteur construction au Congo.
                 </p>
                 <div className="flex items-center">
                   <a
@@ -112,31 +111,31 @@ const Footer = () => {
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Useful Links
+                  Départements
                 </h2>
                 <ul>
                   <li>
                     <Link
-                      href="/blog"
+                      href="https://btp.inbtp.net"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Blog
+                      BTP
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/"
+                      href="https://he.inbtp.net"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Pricing
+                      HE
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/about"
+                      href="https://gr.inbtp.net"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      About
+                      GR
                     </Link>
                   </li>
                 </ul>
@@ -146,31 +145,31 @@ const Footer = () => {
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
                 <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Terms
+                  Services
                 </h2>
                 <ul>
                   <li>
                     <Link
-                      href="/"
+                      href="/finance.inbtp.net"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      TOS
+                      Finance
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/"
+                      href="https://acad.inbtp.net"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Privacy Policy
+                      Académique
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/"
+                      href="https://coge.inbtp.net"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
                     >
-                      Refund Policy
+                      COGE
                     </Link>
                   </li>
                 </ul>
@@ -214,26 +213,8 @@ const Footer = () => {
 
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
           <div className="py-8">
-            <p className="text-center text-base text-body-color dark:text-white">
-              Template by{" "}
-              <a
-                href="http://uideck.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary"
-              >
-                UIdeck
-              </a>{" "}
-              and{" "}
-              <a
-                href="https://nextjstemplates.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary"
-              >
-                Next.js Templates
-              </a>
-            </p>
+            <p>L&apos;INBTP &copy; {new Date().getFullYear()}</p>
+    
           </div>
         </div>
         <div className="absolute right-0 top-14 z-[-1]">

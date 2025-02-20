@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import AdminSteps from "@/components/Process";
 import { programmeService } from "api/service";
 import { homeService } from "api/home";
+import Image from "next/image";
 
 // Update the type definition
 type Programme = {
@@ -12,7 +13,7 @@ type Programme = {
   title: string;
   description: string;
   facultyCode: string; // e.g. "FST", "FSEG", etc.
-  cycle: "LICENCE" | "MASTER" | "DOCTORAT" | "PREPARATOIRE" | "PRE-MASTER";
+  cycle: "Licence" | "Master" | "Doctorat" | "Préparatoire" | "PRE-MASTER";
   level: number; // 1,2,3 for Licence, 1,2 for Master etc
   orientation: string;
   subjectCount: number;
@@ -497,9 +498,11 @@ const ProgrammesPage: React.FC = () => {
                   <div key={programme.id} 
                     className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                     <div className="relative">
-                      <img
+                      <Image
                         src={programme.image}
                         alt={programme.title}
+                        width={400}
+                        height={300}
                         className="w-full h-40 object-cover rounded-t-md"
                       />
                       <span className="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-sm">

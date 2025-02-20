@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
+import { upload } from "../Blog/uplaod.action";
 
 
 const FileUpload = ({selectedFile, setSelectedFile}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log("Info file ", file); 
 
     setSelectedFile(file || null);
   };

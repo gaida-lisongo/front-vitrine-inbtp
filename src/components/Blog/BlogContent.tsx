@@ -75,7 +75,7 @@ const BlogContent = ({ params} : PageProps) => {
         setCourses(data);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     console.log("Cours ", courses);
