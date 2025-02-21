@@ -1,8 +1,48 @@
 "use client";
+import { homeService } from "@/api/home";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
 
 const Footer = () => {
+  const [mentions, setMentions] = useState<any[]>([]);
+
+  useEffect(() => {
+    homeService.mentions()
+      .then((api) => {
+        api.data.map((mention: any) => {
+          let currentMention = {
+            id: mention.id,
+            title: mention.sigle_mention,
+            secions: [],
+          };
+
+          homeService.section()
+            .then((request) => {
+              request.data.map((section: any) => {
+                if (section.id_mention == mention.id) {
+                  currentMention.secions.push({...section});
+                }
+              });
+              
+              setMentions(prev => [...prev, currentMention]);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }, []);
+
+  useEffect(() => {
+    console.log(mentions);
+  }, [mentions]);
+  
   return (
     <>
       <footer className="relative z-10 bg-white pt-16 dark:bg-gray-dark md:pt-20 lg:pt-24">
@@ -107,40 +147,36 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-
-            <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Départements
-                </h2>
-                <ul>
-                  <li>
-                    <Link
-                      href="https://btp.inbtp.net"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      BTP
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="https://he.inbtp.net"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      HE
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="https://gr.inbtp.net"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      GR
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            {
+              mentions && mentions.map((mention) => {
+                return (
+                  <div key={mention.id} className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
+                    <div className="mb-12 lg:mb-16">
+                      <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                        {mention.title}
+                      </h2>
+                      <ul>
+                        {
+                          mention.secions.map((section) => {
+                            return (
+                              <li key={section.id}>
+                                <Link
+                                  href={`https://${section.url}`}
+                                  target="_blank"
+                                  className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
+                                >
+                                  {section.designation}
+                                </Link>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    </div>
+                  </div>
+                )
+              })
+            }
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
@@ -176,39 +212,6 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
-                  Support & Help
-                </h2>
-                <ul>
-                  <li>
-                    <Link
-                      href="/contact"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      Open Support Ticket
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      Terms of Use
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about"
-                      className="mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:text-body-color-dark dark:hover:text-primary"
-                    >
-                      About
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
 
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>

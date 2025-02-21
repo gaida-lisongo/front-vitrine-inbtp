@@ -245,7 +245,7 @@ const allProgrammes: Programme[] = [
 ];
 
 // Categories and corresponding filter options
-const categories = ["Facultés", "Cycles", "Niveaux", "Matières"];
+const categories = ["Cycles", "Niveaux", "Matières"];
 let filterOptions: Record<string, string[]> = {
   Facultés: ["FST", "FSEG"],
   Cycles: ["Licence", "Master", "Doctorat", "Préparatoire"],
@@ -256,7 +256,7 @@ let filterOptions: Record<string, string[]> = {
 const itemsPerPage = 6;
 
 const ProgrammesPage: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>("");
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -328,11 +328,7 @@ const ProgrammesPage: React.FC = () => {
       Niveaux: niveaux,
       Matières: ["Matières ≥ 8", "Matières ≥ 12", "Matières ≥ 20"],
     };
-  }, [cycles, niveaux, facultes]);
-
-  useEffect(() => {
-    console.log("Programmes chargés : ", programmes);
-  }, [programmes]);
+  }, [cycles, niveaux, facultes, programmes]);
 
   const handleCheckboxChange = (option: string, checked: boolean) => {
     if (checked) {
@@ -358,8 +354,6 @@ const ProgrammesPage: React.FC = () => {
     if (selectedCategory && selectedFilters.length) {
       filtered = filtered.filter(programme => {
         switch (selectedCategory) {
-          case "Facultés":
-            return selectedFilters.includes(programme.facultyCode);
           case "Cycles":
             return selectedFilters.includes(programme.cycle);
           case "Niveaux":

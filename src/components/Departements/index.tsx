@@ -23,28 +23,56 @@ const parseDescriptionToArray = (html: string): React.ReactNode[] => {
 };
 
 const Departements: React.FC = () => {
-  const [sections, setSections] = useState<Section[]>([]);
+  const [sections, setSections] = useState<Section[]>([{
+    id: new Date().getTime(),
+    title: "Bienvenue à l’INBTP ",
+    href: '/about',
+    description: `L’Institut National du Bâptiment et des Travaux Public est ’institution de référence en ingénierie du Bâtiment, des Travaux Publics. Ici, nous formons des professionnels d’excellence capables de relever les défis des infrastructures modernes grâce à une formation alliant rigueur académique, expertise technique et immersion sur le terrain.`,
+    presentationArray: parseDescriptionToArray(`Bienvenue à l’Institut National du Bâptiment et des Travaux Public, l’institution de référence en ingénierie du Bâtiment, des Travaux Publics. Ici, nous formons des professionnels d’excellence capables de relever les défis des infrastructures modernes grâce à une formation alliant rigueur académique, expertise technique et immersion sur le terrain. Rejoindre l’INBTP, c’est choisir une formation tournée vers l’innovation, l’employabilité et l’impact concret sur le développement. Façonnez votre avenir avec nous et bâtissez les infrastructures de demain.`),
+  }]);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     homeService
-      .section()
+      .mentions()
       .then((api) => {
-        const data: Section[] = api.data.map((section: any) => {
-          const fullDescription = section.description || "";
-          return {
-            id: section.id,
-            title: section.designation,
-            href: section.url,
-            description: fullDescription,
-            presentationArray: parseDescriptionToArray(fullDescription),
-          };
-        });
-        setSections(data);
+          const data = api.data.map((mention: any) => {
+              return {
+                  id: mention.id,
+                  title: mention.designation,
+                  heref: '/about',
+                  description: mention.description,
+                  sigle: mention.sigle_mention,
+                  presentationArray: parseDescriptionToArray(mention.description),
+              }
+            });
+
+          console.log(data);
+          setSections([...sections, ...data]);
+          
       })
       .catch((error) => {
         console.error(error);
       });
+
+    // homeService
+    //   .section()
+    //   .then((api) => {
+    //     const data: Section[] = api.data.map((section: any) => {
+    //       const fullDescription = section.description || "";
+    //       return {
+    //         id: section.id,
+    //         title: section.designation,
+    //         href: section.url,
+    //         description: fullDescription,
+    //         presentationArray: parseDescriptionToArray(fullDescription),
+    //       };
+    //     });
+    //     setSections(data);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   }, []);
 
   // Auto slide transition every 3 seconds
@@ -84,16 +112,10 @@ const Departements: React.FC = () => {
                 </h2>
                 {/* Display only the parsed content of <p> tags */}
                 <div className="text-lg text-gray-700">
-                  {section.presentationArray?.map((node, i) => (
-                    <div key={i}>{node}</div>
-                  ))}
+                    {section.description}
                 </div>
                 <Link
-                  href={
-                    section.href.startsWith("http")
-                      ? section.href
-                      : `https://${section.href}`
-                  }
+                  href={`${section.href}`}
                   target="_blank"
                   className="inline-block px-6 py-3 bg-primary text-white rounded-md font-semibold"
                 >
