@@ -9,18 +9,10 @@ type Section = {
   title: string;
   href: string;
   description?: string; // full HTML from API
-  presentationArray?: React.ReactNode[]; // parsed description as an array (only <p> content)
+
 };
 
 // Use the native DOMParser to extract only the content of <p> tags from the HTML string
-const parseDescriptionToArray = (html: string): React.ReactNode[] => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, "text/html");
-  const paragraphs = Array.from(doc.querySelectorAll("p"));
-  return paragraphs.map((p, i) => (
-    <p key={i} dangerouslySetInnerHTML={{ __html: p.innerHTML }} />
-  ));
-};
 
 const Departements: React.FC = () => {
   const [sections, setSections] = useState<Section[]>([{
@@ -28,7 +20,6 @@ const Departements: React.FC = () => {
     title: "Bienvenue à l’INBTP ",
     href: '/about',
     description: `L’Institut National du Bâptiment et des Travaux Public est ’institution de référence en ingénierie du Bâtiment, des Travaux Publics. Ici, nous formons des professionnels d’excellence capables de relever les défis des infrastructures modernes grâce à une formation alliant rigueur académique, expertise technique et immersion sur le terrain.`,
-    presentationArray: parseDescriptionToArray(`Bienvenue à l’Institut National du Bâptiment et des Travaux Public, l’institution de référence en ingénierie du Bâtiment, des Travaux Publics. Ici, nous formons des professionnels d’excellence capables de relever les défis des infrastructures modernes grâce à une formation alliant rigueur académique, expertise technique et immersion sur le terrain. Rejoindre l’INBTP, c’est choisir une formation tournée vers l’innovation, l’employabilité et l’impact concret sur le développement. Façonnez votre avenir avec nous et bâtissez les infrastructures de demain.`),
   }]);
   const [current, setCurrent] = useState(0);
 
@@ -43,7 +34,6 @@ const Departements: React.FC = () => {
                   heref: '/about',
                   description: mention.description,
                   sigle: mention.sigle_mention,
-                  presentationArray: parseDescriptionToArray(mention.description),
               }
             });
 
