@@ -55,7 +55,7 @@ const BlogSidebar = ({ params } : PageProps) => {
         orderNumber: null,
         frais: frais
       }
-
+      console.log("Payload: ", formulaire);
 
       switch (formulaire.folder) {
         case '/inscription':
