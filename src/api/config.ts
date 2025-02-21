@@ -3,7 +3,7 @@ import { callbackify } from "util";
 //Configuration url api prod avend api dev
 const api = {
   dev: {
-    url: "http://localhost:8081/api/v1",
+    url: "https://future-shirl-elmes-service-163fb767.koyeb.app/api/v1",
 
   },
   prod: {
