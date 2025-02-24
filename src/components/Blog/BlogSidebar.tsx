@@ -55,7 +55,6 @@ const BlogSidebar = ({ params } : PageProps) => {
         orderNumber: null,
         frais: frais
       }
-      console.log("Payload: ", formulaire);
 
       switch (formulaire.folder) {
         case '/inscription':
@@ -86,7 +85,6 @@ const BlogSidebar = ({ params } : PageProps) => {
             if (api.code == 0) {
               const { orderNumber } = api
               payload.orderNumber = orderNumber;
-              console.log("request: ", payload);   
 
               programmeService.inscription(payload)
               .then((api) => {
@@ -94,10 +92,8 @@ const BlogSidebar = ({ params } : PageProps) => {
                 
                 const intervalId = setInterval(() => {
                   tours--;
-                  console.log("Inscription: ", api);
-                  console.log("Tours: ", tours);
+                  
                   if(tours == 0) {
-                    console.log("stop checking");
                     clearInterval(intervalId);
 
                     return;
@@ -132,12 +128,10 @@ const BlogSidebar = ({ params } : PageProps) => {
       // }
     };
 
-    console.log("Current promo ID: ", id);
     useEffect(() => {
         // Requête API pour récupérer les détails du cours
         programmeService.formulaires({ id })
         .then((api) => {
-            console.log("Formulaires: ", api.data);
             setFormulaire({
               id: api.data[0].id,
               title: api.data[0].designation,
@@ -165,21 +159,6 @@ const BlogSidebar = ({ params } : PageProps) => {
         });
     }, [id]);
 
-    useEffect(() => {
-      console.log("Formulaire ", formulaire);
-    }, [formulaire]);
-
-    useEffect(() => {
-      console.log("Annexes ", annexes);
-    }, [annexes]);
-    
-    useEffect(() => {
-      console.log("Frais ", frais);
-    }, [frais]);
-
-    useEffect(() => {
-      console.log("File ", selectedFile);
-    }, [selectedFile]);
     return (
       <div className="w-full px-4 lg:w-4/12">
         {/* Search Section */}

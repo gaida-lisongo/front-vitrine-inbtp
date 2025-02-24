@@ -3,11 +3,11 @@ import { callbackify } from "util";
 //Configuration url api prod avend api dev
 const api = {
   dev: {
-    url: "https://future-shirl-elmes-service-163fb767.koyeb.app/api/v1",
+    url: "https://backend-vitrine-inbtp.onrender.com/api/v1",
 
   },
   prod: {
-    url: "https://future-shirl-elmes-service-163fb767.koyeb.app/api/v1",
+    url: "https://backend-vitrine-inbtp.onrender.com/api/v1",
   },
   flexData : {
     url : 'https://backend.flexpay.cd/api/rest/v1/paymentService',
